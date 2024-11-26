@@ -1,0 +1,36 @@
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding-left: 2rem;
+    padding-right: 2rem;
+    
+    background-color: lightgray;
+}
+
+
+h1 {
+    font-size: 160%;
+    font-weight: bold;
+}
+
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 7rem;
+    justify-content: center;
+    padding-left: 0;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 110%;
+    color: blue;
+    text-align: center;
+}
+
+nav a:hover {
+    color: darkblue;
+}
