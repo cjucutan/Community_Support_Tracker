@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Community Support Tracker</title>
+</head>
+<body>
+    <header>
+        <h1>Community Portal</h1>
+    </header>
+    
+    <form id="charityForm"
+        action="httbin.org/post"
+        method="post">
+    
+        <section id="navBar">
+            <nav>
+                <ul>
+                    <li><a href="donation.html">Donation Tracker</a></li>
+                    <li><a href="volunteer.html">Volunteer Hours</a></li>
+                    <li><a href="events.html">Event Signup</a></li>
+                </ul>
+            </nav>
+    
+        </section>
+    
+    
+        <div id="charityName">
+
+            <input id="charityInput" name="name" type="text">
+            <label for="charityInput">Charity Name</label>
+            <span class="error" id="nameError" style="color: red;"></span><br />
+    
+        </div>
+    
+        <div id="numberHours">
+
+            <input id="hoursInput" name="hours" type="number">
+            <label for="hoursInput">Number of Hours Volunteered</label>
+            <span class="error" id="hoursError" style="color: red;"></span><br />
+    
+        </div>
+    
+        <div id="date">
+            
+            <input id="dateInput" name="date" type="date">
+            <label for="dateInput">Date Volunteered</label>
+            <span class="error" id="dateError" style="color: red;"></span><br />
+    
+        </div>
+    
+        <div class="container">
+    
+            <fieldset class="rating">
+                <legend>How Would you Rate Your Overall Experience at the Charity from 1 to 5?</legend>
+
+                <input id="1-star" name="rating" type="radio" value="1" class="rating-radio">
+                <label for="1-star"><i class="fa-solid fa-star"></i></label>
+                
+                <input id="2-star" name="rating" type="radio" value="2" class="rating-radio">
+                <label for="2-star"><i class="fa-solid fa-star"></i></label>
+
+                <input id="3-star" name="rating" type="radio" value="3" class="rating-radio">
+                <label for="3-star"><i class="fa-solid fa-star"></i></label>
+
+                <input id="4-star" name="rating" type="radio" value="4" class="rating-radio">
+                <label for="4-star"><i class="fa-solid fa-star"></i></label>
+
+                <input id="5-star" name="rating" type="radio" value="5" class="rating-radio">
+                <label for="5-star"><i class="fa-solid fa-star"></i></label>
+
+    
+            </fieldset>
+    
+        </div>
+        <span class="error" id="ratingError" style="color: red;"></span><br />
+    
+        <input id="submitButton" type="submit" value="Submit Volunteer Hours">
+    </form>
+
+    <footer>
+        <p>&copy; 2024 Community Portal. All Rights Reserved.</p>
+    </footer>
+
+    <script src="volunteer.js"></script>
+</body>
+</html>
