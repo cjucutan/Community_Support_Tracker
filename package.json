@@ -1,4 +1,14 @@
 {
+  "name": "community-support-tracker",
+  "version": "1.0.0",
+  "description": "- Reponsible for creating the Donation Tracker Component which allows us to track and manage our charitable donations",
+  "main": "donation_tracker.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0"
   }
