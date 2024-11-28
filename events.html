@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="template.css">
+    <title>Survey Form</title>
+</head>
+<body>
+    <header>
+        <h1>Community Portal</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="donation.html">Donation Tracker</a></li>
+            <li><a href="volunteer.html">Volunteer Hours Tracker</a></li>
+            <li><a href="events.html">Event Signup</a></li>
+        </ul>
+    </nav>
+    <form id="eventsignup-form" >
+        <h1>Event Sign-up Form</h1>
+        <label for="eventname">What is the Event Name?</label>
+        <input id="eventname" eventname="eventname" type="text" placeholder="Enter your name"><br>
+        <div class="error-message" id="event-name-error"></div>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Enter your email here"><br>
+        <div class="error-message" id="email-error"></div>
+
+        <label for="name">What is the Representative's Name</label>
+        <input id="name" name="name" type="text" placeholder="Enter your name"><br>
+        <div class="error-message" id="name-error"></div>
+        
+        
+
+        <label for="dropdown-menu">Skill Level Tier</label>
+        <select id="dropdown-menu" name="skill-level-tier">
+            <option value="">Select your position</option>
+            <option value="Sponsor">Sponsor</option>
+            <option value="Participant">Participant</option>
+            <option value="Organizer">Organizer</option>
+        </select><br>
+        <div class="error-message" id="dropdown-error"></div>
+
+       
+        <button type="submit">Submit</button>   
+        
+    </form>
+    
+</body>
+<footer>
+    <p>&copy; 2024 Community Portal. All Rights Reserved.</p>
+</footer>
+    <script src="events.js"></script>
+</html>
