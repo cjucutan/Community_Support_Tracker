@@ -13,8 +13,8 @@ function validateInputs(charityName, donationAmount, donationDate) {
         return false;
     }
 
-    const amountNumber = parseFloat(donationAmount);
-    if (isNaN(amountNumber) || amountNumber <= 0) {
+    const amountNumber = +donationAmount;
+    if (amountNumber <= 0) {
         return false;
     }
 
@@ -34,16 +34,15 @@ function handleFormSubmission(formData) {
     }
 
     const donation = {
-        charityName,
-        donationAmount: parseFloat(donationAmount),
-        donationDate,
-        donorComment,
+        charityName: charityName,
+        donationAmount: +donationAmount,
+        donationDate: donationDate,
+        donorComment: donorComment,
     };
 
-    if (!global.donations) global.donations = []; // Ensure global donations is initialized
-    global.donations.push(donation);
-
+    donations.push(donation);
     saveDonationsToLocalStorage();
+    renderTable();
     return donation;
 }
 
@@ -51,7 +50,7 @@ function handleFormSubmission(formData) {
  * Saves donations to localStorage.
  */
 function saveDonationsToLocalStorage() {
-    localStorage.setItem("donations", JSON.stringify(global.donations));
+    localStorage.setItem("donations", JSON.stringify(donations));
 }
 
 /**
@@ -92,9 +91,11 @@ function renderTable() {
  * Updates the total donations summary.
  */
 function updateTotalDonations() {
-    const total = global.donations.reduce((sum, donation) => sum + donation.donationAmount, 0);
-    const totalElement = document.querySelector("#totalDonations");
-    if (totalElement) totalElement.textContent = `$${total.toFixed(2)}`;
+    const total = donations.reduce((sum, donation) => sum + donation.donationAmount, 0);
+    const totalDonationsNode = document.querySelector("#totalDonations");
+    if (totalDonationsNode) {
+        totalDonationsNode.textContent = `$${total.toFixed(2)}`;
+    }
 }
 
 /**
@@ -102,9 +103,9 @@ function updateTotalDonations() {
  * @param {number} index The index of the donation to delete.
  */
 function deleteDonation(index) {
-    if (!global.donations) return;
-    global.donations.splice(index, 1);
+    donations.splice(index, 1);
     saveDonationsToLocalStorage();
+    renderTable();
 }
 
 /**
