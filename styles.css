@@ -36,6 +36,10 @@ nav a:hover {
 }
 /* End nav Region */
 
+h2 {
+    text-align: center;
+}
+
 form {
     background-color: #F5F5DC; 
     border: 2px solid black;
@@ -91,6 +95,57 @@ span.error {
 
 #submitButton:hover {
     background-color: #FF5722;
+}
+
+/* Table Styling */
+#donationTable {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background-color: #F5F5DC; /* Beige background to match the form */
+    color: #3E2723; /* Brown text color */
+    font-size: 1rem;
+}
+
+#donationTable th, #donationTable td {
+    border: 1px solid black; /* Black border for consistency */
+    padding: 10px;
+    text-align: center;
+}
+
+#donationTable th {
+    background-color: #FF7043; /* Orange header background */
+    color: white; /* White text for contrast */
+}
+
+#donationTable tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for alternating rows */
+}
+
+#donationTable tr:hover {
+    background-color: #FFEB3B; /* Yellow hover effect on rows */
+}
+
+.deleteBtn {
+    background-color: #FF7043; /* Orange button color */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteBtn:hover {
+    background-color: #FF5722; /* Darker orange for hover */
+}
+
+/* Summary Section */
+#summary {
+    text-align: center;
+    margin: 1rem auto;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3E2723; /* Brown text color for consistency */
 }
 
 

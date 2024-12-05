@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="template.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Donation Tracker</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
     
     <nav>
         <ul>
-            <li><a href="donation.html" class="active">Donation Tracker</a></li>
+            <li><a href="donation_tracker.html" class="active">Donation Tracker</a></li>
             <li><a href="volunteer.html">Volunteer Hours Tracker</a></li>
             <li><a href="events.html">Event Signup</a></li>
         </ul>
@@ -37,6 +37,27 @@
 
                     <button type="submit">Add Donation</button>
                 </form>
+        </section>
+
+        <section id="donation-list-section">
+            <h2>Donation List</h2>
+            <table id="donationTable">
+                <thead>
+                    <tr>
+                        <th>Charity Name</th>
+                        <th>Donation Amount</th>
+                        <th>Date</th>
+                        <th>Comment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="donationTableBody">
+                    <!-- Rows will be dynamically added here -->
+                </tbody>
+            </table>
+            <div id="summary">
+                <strong>Total Donations:</strong> <span id="totalDonations">$0.00</span>
+            </div>
         </section>
     </main>
 
