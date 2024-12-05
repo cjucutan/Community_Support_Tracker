@@ -36,6 +36,10 @@ nav a:hover {
 }
 /* End nav Region */
 
+h2 {
+    text-align: center;
+}
+
 form {
     background-color: #F5F5DC; 
     border: 2px solid black;

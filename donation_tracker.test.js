@@ -1,4 +1,4 @@
-const { validateInputs, handleFormSubmission } = require("./donation_tracker");
+const { validateInputs, handleFormSubmission } = require("./donation_tracker.js");
 
     test("Valid inputs should pass validation", () => {
         const result = validateInputs("Charity A", "100", "2024-11-27");
