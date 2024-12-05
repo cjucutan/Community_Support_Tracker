@@ -12,14 +12,12 @@
         <h1>Community Portal</h1>
     </header>
     
-    <form id="charityForm"
-        action="httbin.org/post"
-        method="post">
+    <form id="charityForm">
     
         <section id="navBar">
             <nav>
                 <ul>
-                    <li><a href="donation.html">Donation Tracker</a></li>
+                    <li><a href="donation_tracker.html">Donation Tracker</a></li>
                     <li><a href="volunteer.html">Volunteer Hours</a></li>
                     <li><a href="events.html">Event Signup</a></li>
                 </ul>
@@ -80,6 +78,21 @@
     
         <input id="submitButton" type="submit" value="Submit Volunteer Hours">
     </form>
+
+    <table id="volunteer-table">
+        <thead>
+            <tr>
+                <th>Charity Name</th>
+                <th>Hours Volunteered</th>
+                <th>Date Volunteered</th>
+                <th>Experience Rating</th>
+                <th>Delete Row</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+
+        </tbody>
+    </table>
 
     <footer>
         <p>&copy; 2024 Community Portal. All Rights Reserved.</p>

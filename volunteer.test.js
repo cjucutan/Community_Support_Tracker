@@ -1,5 +1,10 @@
 const {JSDOM} = require("jsdom"); // simulates the DOM environment
 
+global.localStorage = {
+    getItem: jest.fn(),
+    setItem: jest.fn()
+}
+
 test("charityForm correctly adds the callback", () => {
     // fake function; only returns true
     const mockCallback = jest.fn(() => true);
@@ -280,4 +285,187 @@ test ("Temporary Data Object is Correctly Populated with Form Data.", () => {
         date: "2024-11-08",
         experienceRating: "2"
     });
-})
+});
+
+
+test ("Data correctly stored in localStorage.", () => {
+    const formData = [
+        {charityName: "Siloam Mission", volunteerHours: 12, date: "2024-01-01", experienceRating: 2}
+    ];
+
+    localStorage.getItem.mockReturnValueOnce(JSON.stringify(formData));
+
+    const retrievedData = JSON.parse(localStorage.getItem("volunteerFormData"));
+
+    expect(retrievedData).toEqual(formData);
+});
+
+test ("Data is correctly retrieved from localStorage and loaded into the table.", () => {
+    const formData = [
+        {charityName: "Siloam Mission", volunteerHours: 12, date: "2024-01-01", experienceRating: 2}
+    ];
+
+    localStorage.getItem.mockReturnValueOnce(JSON.stringify(formData));
+
+    const table = document.createElement("table");
+
+    const tableBody = document.createElement("tbody");
+
+    table.appendChild(tableBody);
+    document.body.appendChild(table);
+
+    formData.forEach(data => {
+        const row = document.createElement("tr");
+
+        Object.values(data).forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        tableBody.appendChild(row);
+    });
+
+    const row = document.querySelector("td");
+
+    expect(row.innerHTML).toEqual("Siloam Mission");
+});
+
+test ("Summary section correctly calculates and displays the total hours volunteered.", () => {
+    const formData = [
+        {charityName: "Siloam Mission", volunteerHours: 12, date: "2024-01-01", experienceRating: 2},
+        {charityName: "Winnipeg Harvest", volunteerHours: 10, date: "2024-01-02", experienceRating: 4}
+    ];
+
+    let totalHours = 0;
+
+    localStorage.getItem.mockReturnValueOnce(JSON.stringify(formData));
+
+    const table = document.createElement("table");
+
+    const tableBody = document.createElement("tbody");
+
+    table.appendChild(tableBody);
+    document.body.appendChild(table);
+
+    formData.forEach(data => {
+        const row = document.createElement("tr");
+
+        Object.values(data).forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        tableBody.appendChild(row);
+    });
+
+    for (let i = 0; i < table.rows.length; i ++) {
+        totalHours = totalHours + parseFloat(table.rows[i].cells[1].textContent);
+    }
+
+    const totalRow = table.insertRow();
+    totalRow.classList.add("total-row");
+
+    const totalCellLabel = totalRow.insertCell(0);
+    totalCellLabel.textContent = "Total Hours";
+
+    const totalCellValue = totalRow.insertCell(1);
+    totalCellValue.textContent = totalHours;
+
+    expect(totalHours).toEqual(22);
+});
+
+test ("Delete button removes a record from the table.", () => {
+    const formData = [
+        {charityName: "Siloam Mission", volunteerHours: 12, date: "2024-01-01", experienceRating: 2}
+    ];
+
+    localStorage.getItem.mockReturnValueOnce(JSON.stringify(formData));
+
+    const table = document.createElement("table");
+
+    const tableBody = document.createElement("tbody");
+
+    table.appendChild(tableBody);
+    document.body.appendChild(table);
+
+    formData.forEach((data, index) => {
+        const row = document.createElement("tr");
+        const deleteButton = document.createElement("button");
+        const deleteCell = document.createElement("td");
+
+        deleteButton.textContent = "Delete Row";
+
+        deleteButton.onclick = function() {
+            row.remove();
+            formData.splice(index, 1);
+            localStorage.setItem("volunteerFormData", JSON.stringify(formData));
+        };
+        deleteCell.appendChild(deleteButton);
+
+
+        Object.values(data).forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        row.appendChild(deleteCell);
+        tableBody.appendChild(row);
+    });
+
+    const deleteBtn = table.querySelector("button");
+    deleteBtn.click();
+
+    expect(tableBody.rows.length).toBe(0);
+
+});
+
+test ("Delete button removes a record from localStorage.", () => {
+    const formData = [
+        {charityName: "Siloam Mission", volunteerHours: 12, date: "2024-01-01", experienceRating: 2}
+    ];
+
+    localStorage.getItem.mockReturnValueOnce(JSON.stringify(formData));
+
+    const table = document.createElement("table");
+
+    const tableBody = document.createElement("tbody");
+
+    table.appendChild(tableBody);
+    document.body.appendChild(table);
+
+    formData.forEach((data, index) => {
+        const row = document.createElement("tr");
+        const deleteButton = document.createElement("button");
+        const deleteCell = document.createElement("td");
+
+        deleteButton.textContent = "Delete Row";
+
+        deleteButton.onclick = function() {
+            row.remove();
+            formData.splice(index, 1);
+            localStorage.setItem("volunteerFormData", JSON.stringify(formData));
+        };
+        deleteCell.appendChild(deleteButton);
+
+
+        Object.values(data).forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        row.appendChild(deleteCell);
+        tableBody.appendChild(row);
+    });
+
+    const deleteBtn = table.querySelector("button");
+    deleteBtn.click();
+
+    expect(localStorage.setItem).toHaveBeenCalledWith("volunteerFormData", JSON.stringify([]));
+});
+
+
+

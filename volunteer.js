@@ -3,7 +3,6 @@ function init() {
     document.getElementById("charityForm").addEventListener("submit", (event) => {
         event.preventDefault(); // Prevents the submission
         clearErrors(); // Clears the error messages
-        
 
         let charityName = charityNameNotEmpty();
         let volunteerHours = volunteerHoursNotEmpty();
@@ -12,7 +11,13 @@ function init() {
 
         // If statement checks if all inputs are valid
         if (charityName.isValid && volunteerHours.isValid && date.isValid && rating.isValid) {
-           alert("Form has been submitted Successfully.");
+            saveFormData(
+                document.getElementById("charityInput").value,
+                document.getElementById("hoursInput").value,
+                document.getElementById("dateInput").value,
+                document.querySelector('input[name="rating"]:checked').value
+            );
+            fillTable();
     
        }else{
            if (!charityName.isValid) {
@@ -32,8 +37,16 @@ function init() {
            }
     
        };
+
+       let charityCookie = getCookie("charityName");
+
+       if (!charityCookie) {
+        charityCookie = document.getElementById("charityInput").value || "No Charity";
+        setcookie("charityCookie", charityCookie, 365);
+       }
         
     })
+    fillTable();
 }
 
 // Checks if its running in a Node.js environment
@@ -48,14 +61,6 @@ if (typeof window === "undefined") {
 } else {
     window.onload = init;
 }
-
-// charityFormData object that stores data
-const charityFormData = {
-    charityName: document.getElementById("charityInput").value,
-    volunteerHours: document.getElementById("hoursInput").value,
-    date: document.getElementById("dateInput").value,
-    experienceRating: document.querySelectorAll("rating-radio").value
-};
 
 // This function validates if the charity name is not empty
 function charityNameNotEmpty() {
@@ -160,4 +165,113 @@ function clearErrors() {
     });
 }
 
+function saveFormData(charityName, volunteerHours, date, experienceRating) {
+    let formData = JSON.parse(localStorage.getItem("volunteerFormData")) || [];
 
+    const row = {
+        charityName,
+        volunteerHours,
+        date,
+        experienceRating
+    };
+
+    formData.push(row);
+
+    localStorage.setItem("volunteerFormData", JSON.stringify(formData));
+}
+
+function setcookie(name, value, days) {
+    let date = new Date();
+
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        
+    let expires = `; expires = ${date.toUTCString()}`;
+
+    document.cookie = `${name}=${value}${expires}`;
+}
+
+function getCookie(name) {
+
+    let cookieString = document.cookie;
+
+    const pairs = cookieString.split("; ");
+
+    for (const pair of pairs) {
+        let [key, value] = pair.split("=");
+
+        if(key === name) {
+            return value;
+        }
+    }
+}
+
+
+
+
+function fillTable() {
+    const formData = JSON.parse(localStorage.getItem("volunteerFormData")) || [];
+    const tableBody = document.getElementById('table-body');
+
+    tableBody.innerHTML = "";
+
+    formData.forEach((row, index) => {
+        const tr = document.createElement('tr');
+
+        const charityCell = document.createElement('td');
+        const volunteerCell = document.createElement('td');
+        const dateCell = document.createElement('td');
+        const experienceCell = document.createElement('td');
+        const deleteCell = document.createElement('td');
+
+        charityCell.innerText = row.charityName;
+        volunteerCell.innerText = row.volunteerHours;
+        dateCell.innerText = row.date;
+        experienceCell.innerText = row.experienceRating;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = "Delete Row";
+        deleteButton.onclick = function() {
+            tr.remove();
+            formData.splice(index, 1);
+            localStorage.setItem("volunteerFormData", JSON.stringify(formData));
+            calculateHours();
+        };
+        deleteCell.appendChild(deleteButton);
+
+        tr.appendChild(charityCell);
+        tr.appendChild(volunteerCell);
+        tr.appendChild(dateCell);
+        tr.appendChild(experienceCell);
+        tr.appendChild(deleteCell);
+
+        tableBody.appendChild(tr);
+    });
+
+    calculateHours();
+}
+
+function calculateHours() {
+    const table = document.getElementById("volunteer-table");
+
+    const subtractDeletedRow = table.querySelector(".total-row");
+    if (subtractDeletedRow) {
+        subtractDeletedRow.remove();
+    }
+
+    let totalHours = 0;
+
+    for (let i = 1; i < table.rows.length; i ++) {
+        totalHours = totalHours + parseFloat(table.rows[i].cells[1].textContent);
+    }
+
+    const totalRow = table.insertRow();
+    totalRow.classList.add("total-row");
+
+    const totalCellLabel = totalRow.insertCell(0);
+    totalCellLabel.textContent = "Total Hours";
+
+    const totalCellValue = totalRow.insertCell(1);
+    totalCellValue.textContent = totalHours;
+
+    return totalHours;
+}
