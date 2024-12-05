@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="template.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Survey Form</title>
 </head>
 <body>
@@ -34,7 +34,7 @@
         
         
 
-        <label for="dropdown-menu">Skill Level Tier</label>
+        <label for="dropdown-menu">Event Position</label>
         <select id="dropdown-menu" name="skill-level-tier">
             <option value="">Select your position</option>
             <option value="Sponsor">Sponsor</option>
@@ -44,7 +44,20 @@
         <div class="error-message" id="dropdown-error"></div>
 
        
-        <button type="submit">Submit</button>   
+        <button type="submit">Submit</button>  
+        
+        <table id="signup-table">
+            <thead>
+                <tr>
+                    <th>Event Name |</th>
+                    <th>Attendee Name |</th>
+                    <th>Email |</th>
+                    <th>Event Role</th>
+                    
+                </tr>
+            </thead>
+            <tbody id = "table-body"></tbody>
+        </table>
         
     </form>
     
