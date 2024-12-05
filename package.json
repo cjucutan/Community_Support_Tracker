@@ -11,7 +11,14 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "jest-unit": "^0.0.2",
     "jsdom": "^25.0.1"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      ["jest-junit", { "outputDirectory": "test-results/jest", "outputName": "jest.xml" }]
+    ]
   }
 }
